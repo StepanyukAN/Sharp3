@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="MailSenderGUI.Infrastructure.ItemsCollectionControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:local="clr-namespace:MailSenderGUI.Infrastructure"
+             mc:Ignorable="d" d:DesignWidth="800" Height="30">
+    <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <TextBlock Text="Отправители" 
+                                       VerticalAlignment="Top" 
+                                       Margin="0,4,0,0"/>
+        <!-- 
+                                DisplayMemberPath="Name"
+                                SelectedValuePath="Email"
+                                SelectedValue=""
+                            -->
+        <ComboBox Width="150">
+            <ComboBox.ItemTemplate>
+                <DataTemplate DataType="spam:Sender">
+                    <StackPanel>
+                        <TextBlock>
+                                                Имя:<TextBlock Text="{Binding Name}"/>
+                                            </TextBlock>
+                        <!--<TextBlock>
+                                                eMail:<TextBlock Text="{Binding Email}"/>
+                                            </TextBlock>-->
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Button ToolTip="Добавить отправителя">
+            <StackPanel Orientation="Horizontal">
+                <!--<Image Source="media/add.png" Height="16"/>-->
+                <fa:ImageAwesome Height="16" Icon="PlusCircle" Foreground="Lime"/>
+                <TextBlock Text="Добавить"/>
+            </StackPanel>
+        </Button>
+        <Button ToolTip="Удалить отправителя">
+            <fa:ImageAwesome Height="16" Icon="Remove" Foreground="Red"/>
+        </Button>
+        <Button ToolTip="Редактировать">
+            <fa:ImageAwesome Height="16" Icon="Edit" Foreground="DarkBlue"/>
+        </Button>
+    </StackPanel>
+</UserControl>
