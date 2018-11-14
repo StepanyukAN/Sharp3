@@ -1,0 +1,84 @@
+﻿<UserControl x:Class="MailSenderGUI.View.RecipientEditView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d" 
+             xmlns:l="clr-namespace:MailSenderGUI.View"
+             xmlns:inf="clr-namespace:MailSenderGUI.Infrastructure"
+             DataContext="{Binding MainWindow, Source={StaticResource Locator}}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <DockPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Center">
+            <Button DockPanel.Dock="Bottom" 
+                    Command="{Binding CreateNewRecipient}"
+                    Margin="0,5" Padding="10,3"
+                    Content="Создать"/>
+            <Button DockPanel.Dock="Bottom" 
+                    Command="{Binding UpdateRecipient}"
+                    CommandParameter="{Binding CurrentRecipient}"
+                    Margin="0,5" Padding="10,3"
+                    Content="Обновить"/>
+        </StackPanel>
+        <GroupBox Header="Получатель">
+            <Grid DataContext="{Binding CurrentRecipient}">
+                <Grid.Resources>
+                    <Style TargetType="TextBox">
+                        <Style.Triggers>
+                            <Trigger Property="Validation.HasError" Value="True">
+                                <Setter Property="ToolTip" 
+                                        Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="Id:"/>
+                <TextBox Grid.Column="1" Grid.Row="0" 
+                         Text="{Binding Id, NotifyOnValidationError=True}"
+                         Validation.Error="OnRecepientID_ValidationError">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <DockPanel>
+                                <TextBlock Text="!!!" FontWeight="Bold" FontSize="14"/>
+                                <Border BorderBrush="DarkRed" BorderThickness="3" CornerRadius="3">
+                                    <AdornedElementPlaceholder/>
+                                </Border>
+                            </DockPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+
+                <TextBlock Grid.Column="0" Grid.Row="1" Text="Name:"/>
+                <TextBox Grid.Column="1" Grid.Row="1">
+                    <TextBox.Text>
+                        <Binding Path="Name" NotifyOnValidationError="True" ValidatesOnDataErrors="True">
+                            <Binding.ValidationRules>
+                                <inf:StringLengthValidationRule StringLength="6"/>
+                                <ExceptionValidationRule/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+
+                <TextBlock Grid.Column="0" Grid.Row="2" Text="Email:"/>
+                <TextBox Grid.Column="1" Grid.Row="2" 
+                         Text="{Binding Email, NotifyOnValidationError=True, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBlock Grid.Column="0" Grid.Row="3" Text="Comment:"/>
+                <TextBox Grid.Column="1" Grid.Row="3" 
+                         Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged}"/>
+
+            </Grid>
+        </GroupBox>
+    </DockPanel>
+</UserControl>

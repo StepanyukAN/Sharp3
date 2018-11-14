@@ -1,0 +1,42 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:fa="http://schemas.fontawesome.io/icons/"
+    xmlns:local="clr-namespace:MailSenderGUI">
+
+
+    <Style TargetType="{x:Type local:ItemsCollectionControl}">
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:ItemsCollectionControl}">
+                    <DockPanel>
+                        <DockPanel.Resources>
+                            <Style TargetType="{x:Type fa:ImageAwesome}">
+                                <Setter Property="Height" Value="16"/>
+                            </Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Margin" Value="2,0"/>
+                            </Style>
+                        </DockPanel.Resources>
+                        <TextBlock DockPanel.Dock="Left" Text="{TemplateBinding PanelName}" VerticalAlignment="Center"/>
+                        <Button DockPanel.Dock="Right" Command="{TemplateBinding CreateCommand}"
+                                CommandParameter="{Binding SelectedItem, ElementName=CollectionView}">
+                            <fa:ImageAwesome Icon="PlusCircle" Foreground="Lime"/>
+                        </Button>
+                        <Button DockPanel.Dock="Right" Command="{TemplateBinding DeleteCommand}"
+                                CommandParameter="{Binding SelectedItem, ElementName=CollectionView}">
+                            <fa:ImageAwesome Icon="Remove" Foreground="Red"/>
+                        </Button>
+                        <Button DockPanel.Dock="Right" Command="{TemplateBinding EditCommand}"
+                                CommandParameter="{Binding SelectedItem, ElementName=CollectionView}">
+                            <fa:ImageAwesome Icon="Edit" Foreground="DarkBlue"/>
+                        </Button>
+                        <ComboBox Name="CollectionView" ItemsSource="{TemplateBinding ItemSource}" Margin="3,0"
+                                  SelectedIndex="{TemplateBinding SelectionIndex}"/>
+                    </DockPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
