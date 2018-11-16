@@ -1,0 +1,9 @@
+int i = 1;
+object obj = i;
+++i;
+Console.WriteLine(i);
+Console.WriteLine(obj);
+Console.WriteLine((short)obj);
+
+Думаю, проблема в том, что не произойдет явного приведения в short,
+наверное, надо использовать Int16.Convert(obj);

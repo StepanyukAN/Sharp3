@@ -1,0 +1,33 @@
+//Ќаписал по-честному, использу€ только блокнот
+
+using System;
+using System.Numerics;
+
+
+
+namespace ConsoleApp
+	{
+
+		class Program
+			{
+				public static void Main(string[] args)
+					{
+						BigInteger fact = Fact(123);
+						Console.WriteLine(fact);
+						Console.ReadKey();
+					}
+
+				private static BigInteger Fact(int number)
+					{
+						BigInteger result = new BigInteger(1);
+						if(number > 1)
+							{
+								for(int i = 1; i<=number; i++)
+									{
+										result*=i;
+									}
+							}
+						return result;
+					}
+			}
+	}
